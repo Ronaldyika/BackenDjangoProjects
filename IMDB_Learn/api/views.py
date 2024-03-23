@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from .models import Watchlist,StreamPlateform
+from .models import Watchlist,StreamPlateform,Review
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .serializer import WatchlistSerializer,StreamPlateformSerializer
+from .serializer import WatchlistSerializer,StreamPlateformSerializer,ReveiwSerializer
 from rest_framework import generics
 
 class watchlist(generics.ListCreateAPIView):
@@ -22,6 +22,25 @@ class streamplateformlist(generics.ListCreateAPIView):
 class streamPlateformdetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = StreamPlateform.objects.all()
     serializer_class = StreamPlateformSerializer
+
+
+
+class reviewlist(generics.ListCreateAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReveiwSerializer
+
+    def review_user(request,pk):
+        queryset = Review.objects.get(user=user)
+        if queryset.DoesNotExist():
+            queryset.create()
+        else{
+            
+        }
+
+
+class reviewdetails(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReveiwSerializer
 
 
 

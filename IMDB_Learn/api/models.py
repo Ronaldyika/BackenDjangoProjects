@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class StreamPlateform(models.Model):
     name = models.CharField(max_length=30)
@@ -22,3 +23,13 @@ class Watchlist(models.Model):
 
         instance.save()
         return instance
+
+
+class Review(models.Model):
+    Watchlist = models.ForeignKey('Watchlist',on_delete = models.CASCADE, related_name = 'watchlist')
+    reviews = models.PositiveBigIntegerField()
+    date_created = models.DateTimeField(auto_now_add = True)
+
+
+    def __str__(self):
+        return str(self.reviews)  + '-' + self.Watchlist.name
